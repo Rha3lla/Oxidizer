@@ -1,34 +1,298 @@
+# rulesets/misra/misra_applicability.toml
+
 [mapping]
-#version of THIS mapping schema 
-schema_version = "0.1"
-
-# MISRA source reference (human readable, not legal copy)
+schema_version = "0.2"
 misra_source = "MISRA C:2025 Addendum 6 (Applicability to Rust)"
-
-# when this mapping was last meaningfully updated
-last_updated = "2026-02-19"
-
-# notes about scope/interpretation
+last_updated = "2026-02-24"
 notes = """
-This file defines explicit mappings between HA-RUST rules and MISRA guidelines that are
-applicable to Rust. The tool uses these mappings for compliance reporting and filtering. 
+This file defines explicit traceability metadata for HA-RUST rules relative to MISRA.
+
+Traceability kinds:
+- misra_mapped: The rule maps to one or more specific MISRA items validated against the licensed source.
+- misra_aligned: The rule supports MISRA goals/intent but does not claim a specific MISRA ID mapping.
+- tool_native: The rule is outside MISRA scope (e.g., supply chain policy) and should not appear in MISRA summaries.
 
 IMPORTANT:
 - This file does not reproduce MISRA content.
-- MISRA references are recorded as identifiers/labels only.
-- Exact MISRA refs are marked <TBD> until validated against the licensed source.
+- misra_refs MUST be empty unless traceability_kind = "misra_mapped".
+- misra_category MUST be "n_a" unless traceability_kind = "misra_mapped".
+
+Rules may be classified as MISRA-mapped, MISRA-aligned, or tool-native; 
+only MISRA-mapped rules contribute to MISRA compliance summaries.
+
+CWE mappings are maintained separately and may be added later; 
+absence of CWE data does not imply lack of security relevance.
 """
 
-# Unsafe/High Assurance Core
+# -------------------------------------------------------------------
+# Unsafe / High Assurance Core
+# -------------------------------------------------------------------
+
 [[rule]]
 id = "HA-RUST-0001"
 title = "Unjustified unsafe block"
 default_severity = "error"
+traceability_kind = "misra_aligned"
 misra_applicability = "rust_general"
-misra_category = "n_a"      #this is temporary until I verify each as required or advisary
-misra_refs = ["MISRA-C:2025 Add6<TBD>"]     #will add specific sections once I identify and trace them
-mapping_strength = "direct"     #this will be confirmed via peer review at a later date
-cwe = ["CWE-119"]     #this will also be independently verified as I itertate through rules
-doc_path = "docs/rules/HA-RUST-0001.md"     #this will be the path for every documented rule in this repo
-notes = "Unsafe use must be justified and traceable via SAFETY rationale"
+misra_category = "n_a"
+misra_refs = []
+mapping_strength = "derived"
+cwe = ["CWE-119"]
+doc_path = "docs/rules/HA-RUST-0001.md"
+notes = "Unsafe governance: requires explicit SAFETY rationale for auditability."
 
+[[rule]]
+id = "HA-RUST-0002"
+title = "Unsafe code outside approved modules"
+default_severity = "error"
+traceability_kind = "misra_aligned"
+misra_applicability = "rust_general"
+misra_category = "n_a"
+misra_refs = []
+mapping_strength = "derived"
+cwe = [...]
+doc_path = 
+notes = "Unsafe containment policy reduces audit scope and concentrates risk."
+
+[[rule]]
+id = "HA-RUST-0003"
+title = "Missing SAFETY justification in unsafe block"
+default_severity = "error"
+traceability_kind = "misra_aligned"
+misra_applicability = "rust_general"
+misra_category = "n_a"
+misra_refs = []
+mapping_strength = "derived"
+cwe = [...]
+doc_path = 
+notes = "Structured SAFETY comment association for unsafe blocks/functions."
+
+[[rule]]
+id = "HA-RUST-0004"
+title = "Unsafe function without documented contract"
+default_severity = "error"
+traceability_kind = "misra_aligned"
+misra_applicability = "rust_general"
+misra_category = "n_a"
+misra_refs = []
+mapping_strength = "derived"
+cwe = [...]
+doc_path = 
+notes = "Unsafe contracts must be documented (preconditions, invariants, postconditions)."
+
+[[rule]]
+id = "HA-RUST-0005"
+title = "Public unsafe API without documentation"
+default_severity = "error"
+traceability_kind = "misra_aligned"
+misra_applicability = "rust_general"
+misra_category = "n_a"
+misra_refs = []
+mapping_strength = "derived"
+notes = "Public unsafe surface area must be explicitly documented and reviewed."
+
+# -------------------------------------------------------------------
+# Embedded Constraints & Determinism
+# -------------------------------------------------------------------
+
+[[rule]]
+id = "HA-RUST-0010"
+title = "Panic usage prohibited in embedded builds"
+default_severity = "error"
+traceability_kind = "misra_aligned"
+misra_applicability = "rust_general"
+misra_category = "required"
+misra_refs = ["MISRA-C:2025 Add6 R.21.8"]
+mapping_strength = "derived"
+notes = "Determinism/availability policy; may support MISRA intent but not mapped by ID."
+
+[[rule]]
+id = "HA-RUST-0011"
+title = "unwrap / expect usage prohibited"
+default_severity = "error"
+traceability_kind = "misra_aligned"
+misra_applicability = "both"
+misra_category = "n_a"
+misra_refs = []
+mapping_strength = "derived"
+notes = "Encourages explicit error handling paths; policy-driven for high assurance."
+
+[[rule]]
+id = "HA-RUST-0012"
+title = "Heap allocation prohibited or restricted"
+default_severity = "error"
+traceability_kind = "misra_aligned"
+misra_applicability = "rust_general"
+misra_category = "n_a"
+misra_refs = []
+mapping_strength = "derived"
+notes = "Embedded determinism/memory policy; mapping depends on applicability guidance."
+
+[[rule]]
+id = "HA-RUST-0013"
+title = "Recursion usage prohibited"
+default_severity = "error"
+traceability_kind = "misra_aligned"
+misra_applicability = "both"
+misra_category = "n_a"
+misra_refs = []
+mapping_strength = "derived"
+notes = "Common safety/embedded restriction; map only if explicitly applicable in MISRA guidance."
+
+[[rule]]
+id = "HA-RUST-0014"
+title = "Unbounded loop without termination proof"
+default_severity = "warning"
+traceability_kind = "misra_aligned"
+misra_applicability = "both"
+misra_category = "n_a"
+misra_refs = []
+mapping_strength = "heuristic"
+notes = "Flags loops lacking evident termination; may require annotations to reduce false positives."
+
+# -------------------------------------------------------------------
+# Integer, Memory, and Type Safety
+# -------------------------------------------------------------------
+
+[[rule]]
+id = "HA-RUST-0020"
+title = "Lossy integer conversion without justification"
+default_severity = "warning"
+traceability_kind = "misra_aligned"
+misra_applicability = "both"
+misra_category = "n_a"
+misra_refs = []
+mapping_strength = "direct"
+notes = "Integer conversion discipline; candidate for misra_mapped once validated."
+
+[[rule]]
+id = "HA-RUST-0021"
+title = "Implicit integer widening or narrowing"
+default_severity = "warning"
+traceability_kind = "misra_aligned"
+misra_applicability = "both"
+misra_category = "n_a"
+misra_refs = []
+mapping_strength = "partial"
+notes = "Rust avoids implicit casts; focuses on patterns that bypass intent (e.g., as-casts)."
+
+[[rule]]
+id = "HA-RUST-0022"
+title = "Arithmetic overflow without checked operation"
+default_severity = "error"
+traceability_kind = "misra_aligned"
+misra_applicability = "both"
+misra_category = "n_a"
+misra_refs = []
+mapping_strength = "direct"
+cwe = ["CWE-190"]
+notes = "Overflow policy (checked/saturating/wrapping) varies by profile."
+
+[[rule]]
+id = "HA-RUST-0023"
+title = "Use of `static mut`"
+default_severity = "error"
+traceability_kind = "misra_aligned"
+misra_applicability = "rust_general"
+misra_category = "n_a"
+misra_refs = []
+mapping_strength = "direct"
+cwe = ["CWE-362"]
+notes = "Global mutable state; candidate for misra_mapped if explicitly covered."
+
+[[rule]]
+id = "HA-RUST-0024"
+title = "Interior mutability without justification"
+default_severity = "warning"
+traceability_kind = "misra_aligned"
+misra_applicability = "both"
+misra_category = "n_a"
+misra_refs = []
+mapping_strength = "heuristic"
+notes = "Flags Cell/RefCell/UnsafeCell usage requiring additional reasoning."
+
+# -------------------------------------------------------------------
+# FFI & Concurrency
+# -------------------------------------------------------------------
+
+[[rule]]
+id = "HA-RUST-0030"
+title = "FFI boundary without safe wrapper"
+default_severity = "error"
+traceability_kind = "misra_aligned"
+misra_applicability = "rust_general"
+misra_category = "n_a"
+misra_refs = []
+mapping_strength = "derived"
+notes = "FFI contracts should be isolated; map only if MISRA Rust applicability guidance covers it."
+
+[[rule]]
+id = "HA-RUST-0031"
+title = "Unsafe FFI call without contract documentation"
+default_severity = "error"
+traceability_kind = "misra_aligned"
+misra_applicability = "rust_general"
+misra_category = "n_a"
+misra_refs = []
+mapping_strength = "derived"
+notes = "Requires documented ownership, aliasing, lifetime, and thread-safety assumptions."
+
+[[rule]]
+id = "HA-RUST-0032"
+title = "Data race risk due to improper synchronization"
+default_severity = "error"
+traceability_kind = "misra_aligned"
+misra_applicability = "rust_general"
+misra_category = "n_a"
+misra_refs = []
+mapping_strength = "heuristic"
+cwe = ["CWE-362"]
+notes = "Targets unsafe concurrency patterns; exact mapping depends on guidance."
+
+[[rule]]
+id = "HA-RUST-0033"
+title = "Atomic ordering weaker than required"
+default_severity = "warning"
+traceability_kind = "misra_aligned"
+misra_applicability = "rust_general"
+misra_category = "n_a"
+misra_refs = []
+mapping_strength = "heuristic"
+notes = "Flags relaxed orderings where stronger guarantees are policy-required."
+
+# -------------------------------------------------------------------
+# Build, Configuration, and Supply Chain (MISRA out-of-scope)
+# -------------------------------------------------------------------
+
+[[rule]]
+id = "HA-RUST-0040"
+title = "Use of forbidden dependency"
+default_severity = "error"
+traceability_kind = "tool_native"
+misra_applicability = "not_applicable"
+misra_category = "n_a"
+misra_refs = []
+mapping_strength = "derived"
+notes = "Supply-chain policy; not a MISRA guideline mapping."
+
+[[rule]]
+id = "HA-RUST-0041"
+title = "Dependency with known vulnerability"
+default_severity = "error"
+traceability_kind = "tool_native"
+misra_applicability = "not_applicable"
+misra_category = "n_a"
+misra_refs = []
+mapping_strength = "derived"
+notes = "RustSec/CVE-based policy; not a MISRA guideline mapping."
+
+[[rule]]
+id = "HA-RUST-0042"
+title = "License policy violation"
+default_severity = "warning"
+traceability_kind = "tool_native"
+misra_applicability = "not_applicable"
+misra_category = "n_a"
+misra_refs = []
+mapping_strength = "derived"
+notes = "License compliance policy; not a MISRA guideline mapping."
