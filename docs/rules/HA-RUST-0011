@@ -1,0 +1,5 @@
+MISRA Dir 4.1 a possibility "Run-time failures shall be minimized"
+
+unwrap / expect usage prohibited
+
+Encourages explicit error handling paths
