@@ -89,6 +89,8 @@ misra_applicability = "rust_general"
 misra_category = "n_a"
 misra_refs = []
 mapping_strength = "derived"
+cwe = [...]
+doc_path = 
 notes = "Public unsafe surface area must be explicitly documented and reviewed."
 
 # -------------------------------------------------------------------
@@ -104,6 +106,8 @@ misra_applicability = "rust_general"
 misra_category = "required"
 misra_refs = ["MISRA-C:2025 Add6 R.21.8"]
 mapping_strength = "derived"
+cwe = [...]
+doc_path = 
 notes = "Determinism/availability policy; may support MISRA intent but not mapped by ID."
 
 [[rule]]
@@ -115,28 +119,34 @@ misra_applicability = "both"
 misra_category = "n_a"
 misra_refs = []
 mapping_strength = "derived"
+cwe = [...]
+doc_path = 
 notes = "Encourages explicit error handling paths; policy-driven for high assurance."
 
 [[rule]]
 id = "HA-RUST-0012"
 title = "Heap allocation prohibited or restricted"
 default_severity = "error"
-traceability_kind = "misra_aligned"
-misra_applicability = "rust_general"
-misra_category = "n_a"
-misra_refs = []
-mapping_strength = "derived"
+traceability_kind = "misra_mapped"
+misra_applicability = "both"
+misra_category = "advisory"
+misra_refs = ["MISRA-C:2025 Add6 D.4.12"]
+mapping_strength = "direct"
+cwe = [...]
+doc_path = 
 notes = "Embedded determinism/memory policy; mapping depends on applicability guidance."
 
 [[rule]]
 id = "HA-RUST-0013"
 title = "Recursion usage prohibited"
 default_severity = "error"
-traceability_kind = "misra_aligned"
+traceability_kind = "misra_mapped"
 misra_applicability = "both"
-misra_category = "n_a"
-misra_refs = []
-mapping_strength = "derived"
+misra_category = "required"
+misra_refs = ["MISRA-C:2025 Add6 R.17.2"]
+mapping_strength = "direct"
+cwe = [...]
+doc_path = 
 notes = "Common safety/embedded restriction; map only if explicitly applicable in MISRA guidance."
 
 [[rule]]
@@ -145,9 +155,11 @@ title = "Unbounded loop without termination proof"
 default_severity = "warning"
 traceability_kind = "misra_aligned"
 misra_applicability = "both"
-misra_category = "n_a"
-misra_refs = []
+misra_category = "advisory"
+misra_refs = ["MISRA-C:2025 Add6 R.14.2, R.15.4"]
 mapping_strength = "heuristic"
+cwe = [...]
+doc_path = 
 notes = "Flags loops lacking evident termination; may require annotations to reduce false positives."
 
 # -------------------------------------------------------------------
@@ -158,11 +170,13 @@ notes = "Flags loops lacking evident termination; may require annotations to red
 id = "HA-RUST-0020"
 title = "Lossy integer conversion without justification"
 default_severity = "warning"
-traceability_kind = "misra_aligned"
+traceability_kind = "misra_mapped"
 misra_applicability = "both"
 misra_category = "n_a"
 misra_refs = []
 mapping_strength = "direct"
+cwe = [...]
+doc_path = 
 notes = "Integer conversion discipline; candidate for misra_mapped once validated."
 
 [[rule]]
