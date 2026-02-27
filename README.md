@@ -15,60 +15,25 @@ Rust today benefits from a strong type system and ownership model, but:
 This analyzer is being built to solve that need.
 
 ---
-
-## 🧠 Vision
-
-This project provides:
-- A **configurable static analysis engine** for Rust source code.
-- **Profiles** tailored to:
-  - Embedded systems
-  - High-assurance coding
-  - Security/CWE alignment
-  - MISRA-applicability for Rust
-- A focus on:
-  - Decidability
-  - Audit-grade metadata
-  - SARIF reporting for CI/CD
-  - Ease of integration for existing Rust teams
+## Planned Features
+- [ ] MISRA-C:2025 Addendum 6 rule coverage
+- [ ] SARIF 2.1.0 compliant output
+- [ ] Severity classification (Critical/High/Medium/Low)
+- [ ] Cross-platform support (Windows/Linux)
+- [ ] Extensible rule architecture
+- [ ] Compliance reporting for certification packages
 
 ---
-
-## 🚀 Features
-
-- **High-assurance rule enforcement**  
-  Rule definitions with rationale, severity, and traceable documentation.
-
-- **Security advisory scanning**  
-  Integrates with the RustSec ecosystem to flag known crate vulnerabilities.
-
-- **Multi-profile support**  
-  Switch between enforcement profiles or customize rules per project.
-
-- **SARIF output**  
-  Designed to plug into GitHub/GitLab/Bitbucket code scanning and dashboards.
-
-- **Cross-platform**  
-  Runs on Windows and Linux, and is agnostic to chip architecture and OS presence.
-
-- **CI/CD-ready**  
-  Non-zero exit codes on policy violations, suppression support, and diff mode for incremental adoption.
-
----
-
-## 🧩 Planned Rule Profiles
-
-| Profile | Focus | Example Constraints |
-|---------|-------|--------------------|
-| `embedded` | Bare-metal / resource-constrained | No dynamic allocation in hot loops, no panics in production |
-| `high_assurance` | Safety-critical systems | Ban unchecked casts, explicit error handling |
-| `security` | Secure coding | Disallow unsafe FFI without wrappers, enforce bounds checks |
-| `misra_rust` | MISRA applicability | Rust mappings of MISRA-C constraints based on MISRA Addendum 6 |
+## Target Users
+- Department of Defense programs requiring software certification
+- Military services undergoing NSA high-assurance evaluation
+- Defense contractors building safety/security-critical Rust systems
 
 ---
 
 ## 🛠️ Usage
 
-> ⚠️ This tool is under active development. 
+> ⚠️ This tool is under active development, infrastructure phase 
 
 
 
@@ -82,16 +47,7 @@ GOALS
 7. There will probably be more requirements that are discovered along the way. 
 
 
-Rule Definition Format
 
-Each rule includes:
-Unique stable ID
-Severity level
-CWE mappings
-MISRA applicability annotations
-Rationale and examples
-Suppression guidelines
-This metadata supports transparency and auditability for regulated environments.
 
 Acknowledgements
 Inspired by limitations in existing tooling like rustc and Clippy
@@ -99,14 +55,7 @@ Leveraging the RustSec Advisory Database
 Aligned to emerging Rust safety-critical practices
 
 
-## 📜 Rule Catalog
-
-The full list of planned and implemented static analysis rules is maintained
-separately.
-
-➡️ **[View the Rule Catalog](docs/rule-catalog.md)**
-
-
-## Development
-
-See: **[Development Setup (Windows)](docs/development-setup.md)**
+## License
+Proprietary — see COPYRIGHT
+## Contact
+Melissa Wilson, medicmommy83@gmail.com
