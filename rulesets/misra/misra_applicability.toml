@@ -1,9 +1,9 @@
 # rulesets/misra/misra_applicability.toml
 
 [mapping]
-schema_version = "0.2"
+schema_version = "0.3"
 misra_source = "MISRA C:2025 Addendum 6 (Applicability to Rust)"
-last_updated = "2026-02-24"
+last_updated = "2026-02-26"
 notes = """
 This file defines explicit traceability metadata for HA-RUST rules relative to MISRA.
 
@@ -33,11 +33,11 @@ id = "HA-RUST-0001"
 title = "Unjustified unsafe block"
 default_severity = "error"
 traceability_kind = "misra_aligned"
-misra_applicability = "rust_general"
+misra_applicability_summary = "rust_general"
 misra_category = "n_a"
 misra_refs = []
 mapping_strength = "derived"
-cwe = ["CWE-119"]
+cwe = [...]
 doc_path = "docs/rules/HA-RUST-0001.md"
 notes = "Unsafe governance: requires explicit SAFETY rationale for auditability."
 
@@ -46,7 +46,7 @@ id = "HA-RUST-0002"
 title = "Unsafe code outside approved modules"
 default_severity = "error"
 traceability_kind = "misra_aligned"
-misra_applicability = "rust_general"
+misra_applicability_summary = "rust_general"
 misra_category = "n_a"
 misra_refs = []
 mapping_strength = "derived"
@@ -59,7 +59,7 @@ id = "HA-RUST-0003"
 title = "Missing SAFETY justification in unsafe block"
 default_severity = "error"
 traceability_kind = "misra_aligned"
-misra_applicability = "rust_general"
+misra_applicability_summary = "rust_general"
 misra_category = "n_a"
 misra_refs = []
 mapping_strength = "derived"
@@ -72,7 +72,7 @@ id = "HA-RUST-0004"
 title = "Unsafe function without documented contract"
 default_severity = "error"
 traceability_kind = "misra_aligned"
-misra_applicability = "rust_general"
+misra_applicability_summary = "rust_general"
 misra_category = "n_a"
 misra_refs = []
 mapping_strength = "derived"
@@ -85,7 +85,7 @@ id = "HA-RUST-0005"
 title = "Public unsafe API without documentation"
 default_severity = "error"
 traceability_kind = "misra_aligned"
-misra_applicability = "rust_general"
+misra_applicability_summary = "rust_general"
 misra_category = "n_a"
 misra_refs = []
 mapping_strength = "derived"
@@ -101,14 +101,19 @@ notes = "Public unsafe surface area must be explicitly documented and reviewed."
 id = "HA-RUST-0010"
 title = "Panic usage prohibited in embedded builds"
 default_severity = "error"
-traceability_kind = "misra_aligned"
+traceability_kind = "misra_mapped"
 misra_applicability = "rust_general"
-misra_category = "required"
-misra_refs = ["MISRA-C:2025 Add6 R.21.8"]
+misra_category_summary = "required"
 mapping_strength = "derived"
 cwe = [...]
 doc_path = 
-notes = "Determinism/availability policy; may support MISRA intent but not mapped by ID."
+[[rule.misra_ref]]
+ref = "MISRA-C:2025 Add6 R.21.8"
+category = "required"
+applicability = "rust_general"
+mapping_strength = "direct"
+notes = "Validated against Addendum 6, determinism/availability policy"
+
 
 [[rule]]
 id = "HA-RUST-0011"
@@ -116,7 +121,7 @@ title = "unwrap / expect usage prohibited"
 default_severity = "error"
 traceability_kind = "misra_aligned"
 misra_applicability = "both"
-misra_category = "n_a"
+misra_category_summary = "none"
 misra_refs = []
 mapping_strength = "derived"
 cwe = [...]
@@ -128,26 +133,33 @@ id = "HA-RUST-0012"
 title = "Heap allocation prohibited or restricted"
 default_severity = "error"
 traceability_kind = "misra_mapped"
-misra_applicability = "both"
-misra_category = "advisory"
-misra_refs = ["MISRA-C:2025 Add6 D.4.12"]
-mapping_strength = "direct"
+misra_applicability_summary = "both"
 cwe = [...]
 doc_path = 
-notes = "Embedded determinism/memory policy; mapping depends on applicability guidance."
+[[rule.misra_ref]]
+ref = "MISRA-C:2025 Add6 D.4.12"
+category = "advisory"
+applicability = "both"
+mapping_strength = "direct"
+notes = "Validated against Addendum 6, Embedded determinism/memory policy"
+
 
 [[rule]]
 id = "HA-RUST-0013"
 title = "Recursion usage prohibited"
 default_severity = "error"
 traceability_kind = "misra_mapped"
-misra_applicability = "both"
-misra_category = "required"
-misra_refs = ["MISRA-C:2025 Add6 R.17.2"]
-mapping_strength = "direct"
+misra_category_summary = "required"
 cwe = [...]
 doc_path = 
-notes = "Common safety/embedded restriction; map only if explicitly applicable in MISRA guidance."
+[[rule.misra_ref]]
+ref = "MISRA-C:2025 Add6 R.17.2"
+category = "required"
+applicability = "both"
+mapping_strength = "direct"
+notes = "Validated against Addendum 6, Common safety/embedded restriction"
+
+
 
 [[rule]]
 id = "HA-RUST-0014"
@@ -155,12 +167,25 @@ title = "Unbounded loop without termination proof"
 default_severity = "warning"
 traceability_kind = "misra_aligned"
 misra_applicability = "both"
-misra_category = "advisory"
-misra_refs = ["MISRA-C:2025 Add6 R.14.2, R.15.4"]
+misra_category_summary = "advisory"
 mapping_strength = "heuristic"
 cwe = [...]
 doc_path = 
-notes = "Flags loops lacking evident termination; may require annotations to reduce false positives."
+#one entry per MISRA guideline that maps
+[[rule.misra_ref]]
+ref = "MISRA-C:2025 Add6 R.14.2"
+category = "advisory"
+applicability = "both"
+mapping_strength = "heuristic"
+notes = "Validated against Addendum 6, flags loops lacking evident termination"
+#second mapping
+[[rule.misra_ref]]
+ref = "MISRA-C:2025 Add6 R.15.4"
+category = "advisory"
+applicability = "both"
+mapping_strength = "heuristic"
+notes = "Validated against Addendum 6, may require annotations to reduce false positives" 
+
 
 # -------------------------------------------------------------------
 # Integer, Memory, and Type Safety
@@ -172,35 +197,76 @@ title = "Lossy integer conversion without justification"
 default_severity = "warning"
 traceability_kind = "misra_mapped"
 misra_applicability = "both"
-misra_category = "n_a"
-misra_refs = []
+misra_category_summary = "mixed"
 mapping_strength = "direct"
 cwe = [...]
 doc_path = 
-notes = "Integer conversion discipline; candidate for misra_mapped once validated."
+#first mapping
+[[rule.misra_ref]]
+ref = "MISRA-C:2025 Section 5.10"
+category = "required"
+applicability = "both"
+mapping_strength = "direct"
+notes = "Validated against Addendum 6, conversion discipline" 
+#second mapping
+[[rule.misra_ref]]
+ref = "MISRA-C:2025 Add6 R.11.4"
+category = "required"
+applicability = "both"
+mapping_strength = "direct"
+notes = "Validated against Addendum 6, integer conversion" 
+#third mapping
+[[rule.misra_ref]]
+ref = "MISRA-C:2025 Add6 R.10.5"
+category = "advisory"
+applicability = "both"
+mapping_strength = "direct"
+notes = "Validated against Addendum 6, conversion" 
+
 
 [[rule]]
 id = "HA-RUST-0021"
 title = "Implicit integer widening or narrowing"
 default_severity = "warning"
-traceability_kind = "misra_aligned"
-misra_applicability = "both"
+traceability_kind = "misra_mapped"
+misra_applicability_summary = "mixed"
 misra_category = "n_a"
 misra_refs = []
 mapping_strength = "partial"
-notes = "Rust avoids implicit casts; focuses on patterns that bypass intent (e.g., as-casts)."
+#first mapping
+[[rule.misra_ref]]
+ref = "MISRA-C:2025 Add6 R.10.8"
+category = "advisory"
+applicability = "rust_general"
+mapping_strength = "direct"
+notes = "Validated against Addendum 6, several rules that were N/A for Rust and partial applicability for safe rust"
+
 
 [[rule]]
 id = "HA-RUST-0022"
 title = "Arithmetic overflow without checked operation"
 default_severity = "error"
-traceability_kind = "misra_aligned"
+traceability_kind = "misra_mapped"
 misra_applicability = "both"
-misra_category = "n_a"
-misra_refs = []
+misra_category_summary = "required"
 mapping_strength = "direct"
 cwe = ["CWE-190"]
-notes = "Overflow policy (checked/saturating/wrapping) varies by profile."
+doc_path =
+#first mapping
+[[rule.misra_ref]]
+ref = "MISRA-C:2025 Add6 D.4.1"
+category = "required"
+applicability = "both"
+mapping_strength = "direct"
+notes = "Validated against Addendum 6, arithmetic errors"
+#second mapping
+[[rule.misra_ref]]
+ref = "MISRA-C:2025 Add6 D.4.15"
+category = "required"
+applicability = "both"
+mapping_strength = "direct"
+notes = "Validated against Addendum 6, operations on floating-point expressions"
+
 
 [[rule]]
 id = "HA-RUST-0023"
