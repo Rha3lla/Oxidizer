@@ -1,0 +1,23 @@
+# Rust build output -- never commit this
+/target
+**/target
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+#macOS junk
+.DS_Store
+thumbs.db
+
+# Secrets -- never commit these
+.env
+*.pem
+*.key
+
+# Semgrep cache
+.semgrep/
+
+# Large binaries -- use Git LFS instead
+*.pdf
