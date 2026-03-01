@@ -70,14 +70,6 @@ Focus order for HAAT development:
 4. **P4 - Safe-Rust-only concerns**: Polish phase
 ---
 
----
-## Implementation Priority
-Focus order for HAAT development:
-1. **P1 - Critical/High + Required**: Must implement first
-2. **P2 - Medium + Required**: Second wave
-3. **P3 - Advisory (any severity)**: Third wave
-4. **P4 - Safe-Rust-only concerns**: Polish phase
----
 ## Directives
 | ID | Rationale | Rust General | Safe Rust | Rust Category | Severity | Priority | HAAT Status | Notes |
 |----|-----------|--------------|-----------|---------------|----------|----------|-------------|-------|
