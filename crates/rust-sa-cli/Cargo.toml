@@ -1,0 +1,14 @@
+[package]
+name = "rust-sa-cli"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rust-sa-core = {path = "../rust-sa-core"}
+walkdir = "2"
+
+#Error handling
+anyhow = "1"
+
+#CLI interface
+clap = {version = "4", features = ["derive"]}

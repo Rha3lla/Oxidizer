@@ -1,0 +1,10 @@
+[package]
+name = "rust-sa-rules"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rust-sa-core = {path = "../rust-sa-core"}
+
+[dev-dependencies]
+pretty_assertions = "1"
