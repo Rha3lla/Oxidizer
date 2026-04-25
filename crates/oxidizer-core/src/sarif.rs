@@ -81,7 +81,7 @@ pub fn emit_sarif(findings: &[Finding]) -> Result<String, serde_json::Error> {
         "runs": [{
             "tool": {
                 "driver": {
-                    "name": "rust-sa",
+                    "name": "oxidizer",
                     "version": env!("CARGO_PKG_VERSION"),
                     "informationUri": "https://github.com/Rha3lla/Oxidizer",
                     "rules": rules
