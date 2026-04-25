@@ -163,6 +163,35 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "384b8ab6d37215f3c5301a95a4accb5d64aa607f1fcb26a11b5303878451b4fe"
 
 [[package]]
+name = "oxidizer-cli"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "clap",
+ "oxidizer-core",
+ "walkdir",
+]
+
+[[package]]
+name = "oxidizer-core"
+version = "0.1.0"
+dependencies = [
+ "pretty_assertions",
+ "serde",
+ "serde_json",
+ "thiserror",
+ "toml",
+]
+
+[[package]]
+name = "oxidizer-rules"
+version = "0.1.0"
+dependencies = [
+ "oxidizer-core",
+ "pretty_assertions",
+]
+
+[[package]]
 name = "pretty_assertions"
 version = "1.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -188,35 +217,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "41f2619966050689382d2b44f664f4bc593e129785a36d6ee376ddf37259b924"
 dependencies = [
  "proc-macro2",
-]
-
-[[package]]
-name = "rust-sa-cli"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "clap",
- "rust-sa-core",
- "walkdir",
-]
-
-[[package]]
-name = "rust-sa-core"
-version = "0.1.0"
-dependencies = [
- "pretty_assertions",
- "serde",
- "serde_json",
- "thiserror",
- "toml",
-]
-
-[[package]]
-name = "rust-sa-rules"
-version = "0.1.0"
-dependencies = [
- "pretty_assertions",
- "rust-sa-core",
 ]
 
 [[package]]

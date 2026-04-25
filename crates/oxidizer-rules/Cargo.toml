@@ -1,10 +1,10 @@
 [package]
-name = "rust-sa-rules"
+name = "oxidizer-rules"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-rust-sa-core = {path = "../rust-sa-core"}
+oxidizer-core = {path = "../oxidizer-core"}
 
 [dev-dependencies]
 pretty_assertions = "1"

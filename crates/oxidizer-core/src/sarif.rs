@@ -83,7 +83,7 @@ pub fn emit_sarif(findings: &[Finding]) -> Result<String, serde_json::Error> {
                 "driver": {
                     "name": "rust-sa",
                     "version": env!("CARGO_PKG_VERSION"),
-                    "informationUri": "https://github.com/Rha3lla/Rust-Static-Analyzer",
+                    "informationUri": "https://github.com/Rha3lla/Oxidizer",
                     "rules": rules
                 }
             },

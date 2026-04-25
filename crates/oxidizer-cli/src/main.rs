@@ -1,5 +1,5 @@
 use clap::Parser;
-use rust_sa_core::config::Config;
+use oxidizer_core::config::Config;
 
 #[derive(Parser)]
 #[command(name = "cargo-sast", about = "High-Assurance Static Analysis for Rust")]

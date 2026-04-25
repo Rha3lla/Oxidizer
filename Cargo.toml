@@ -1,7 +1,7 @@
 [workspace]
 members = [
-    "crates/rust-sa-core",
-    "crates/rust-sa-cli",
-    "crates/rust-sa-rules",
+    "crates/oxidizer-core",
+    "crates/oxidizer-cli",
+    "crates/oxidizer-rules",
 ]
 resolver = "2"
